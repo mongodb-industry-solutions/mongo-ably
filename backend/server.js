@@ -18,8 +18,8 @@ let db, collection;
 
 MongoClient.connect(mongoUri)
   .then((client) => {
-    db = client.db(); // Use the default database
-    collection = db.collection('mongo-test'); // Collection where messages will be stored
+    db = client.db('mongodb-ably-demo'); 
+    collection = db.collection('mongo-test');
     console.log('Connected to MongoDB');
   })
   .catch((err) => console.error('Error connecting to MongoDB:', err));
