@@ -61,7 +61,7 @@ function sendMessageToAbly() {
 }
 
 // Start sending messages as soon as the server starts
-sendMessageToAbly();
+// sendMessageToAbly();
 
 // Subscribe to the Ably channel and store incoming messages in MongoDB
 ablyChannel.subscribe('message', async (message) => {

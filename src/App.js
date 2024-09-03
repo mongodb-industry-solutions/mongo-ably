@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { ablyChannel } from './ably';
+import { useDispatch, useSelector } from 'react-redux';
+
+import Landing from './pages/Landing.js';
+import { ablyChannel } from './ably.js';
+import { addMessageToList } from './redux/slices/MessageSlice.js';
 
 function App() {
-  const [messages, setMessages] = useState([]);
+  const dispatch = useDispatch();
+  const message = useSelector(state => state.Message.typedMsg)
+
 
   useEffect(() => {
     ablyChannel.subscribe((msg) => {
-      setMessages((prevMessages) => [...prevMessages, msg.data]);
+      console.log("SUSCRIBED MSG, ", msg)
+      dispatch(addMessageToList(msg.data))
     });
 
     return () => {
@@ -14,21 +21,9 @@ function App() {
     };
   }, []);
 
-  const sendMessage = (message) => {
-    ablyChannel.publish('message', message);
-  };
-
   return (
-    <div>
-      <h1>Ably & MongoDB Chat</h1>
-      <ul>
-        {messages.map((msg, index) => (
-          <li key={index}>{msg}</li>
-        ))}
-      </ul>
-      <button onClick={() => sendMessage('Hello from React!')}>
-        Send Message
-      </button>
+    <div className='App'>
+      <Landing></Landing>
     </div>
   );
 }
