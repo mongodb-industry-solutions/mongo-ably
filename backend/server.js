@@ -6,8 +6,8 @@ const { v4: uuidv4 } = require('uuid'); // For generating random message IDs
 require('dotenv').config();
 
 // Access environment variables
-const ablyApiKey = process.env.ABLY_KEY;
-const mongoUri = process.env.MONGO_URI;
+const ablyApiKey = process.env.REACT_APP_ABLY_KEY;
+const mongoUri = process.env.REACT_APP_MONGO_URI;
 
 const app = express();
 const ably = new Ably(ablyApiKey);
