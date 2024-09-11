@@ -12,9 +12,19 @@ code {
     monospace;
 }
 
-h6{
+h6, .TabsContainer{
   margin-bottom: 20px !important;
   margin-top: 25px !important;
+}
+
+.noti{
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgb(204, 4, 4);
+  display: inline-block;
+  margin-bottom: 4px;
+  margin-left: 1px;
 }
 
 .card-styles{

@@ -10,10 +10,13 @@ const ablyApiKey = process.env.REACT_APP_ABLY_KEY;
 const mongoUri = process.env.REACT_APP_MONGO_URI;
 
 const app = express();
+const port = 3001;
+const cors = require("cors");
 const ably = new Ably(ablyApiKey);
 const ablyChannel = ably.channels.get('mongo-test');
 const updatesChannel = ably.channels.get('updates'); // Channel for updates
-
+app.use(express.json());
+app.use(cors());
 // Connect to MongoDB using the environment variable
 let db, collection, updatesCollection;
 
@@ -111,6 +114,29 @@ function startChangeStream() {
   });
 }
 
-app.listen(3001, () => {
+// Function to get all the documents inside the mongo-test collection
+app.get('/api/mongo-test', async (req, res) => {
+  try {
+      const data = await collection.find({}).toArray();
+      res.status(200).json(data);
+  } catch (error) {
+      console.error('Error fetching data', error);
+      res.status(500).send('Internal Server Error');
+  }
+});
+
+// Function to get all the documents inside the mongo-test collection
+app.get('/api/updates', async (req, res) => {
+  try {
+      const data = await updatesCollection.find({}).toArray();
+      res.status(200).json(data);
+  } catch (error) {
+      console.error('Error fetching data', error);
+      res.status(500).send('Internal Server Error');
+  }
+});
+
+app.listen(port, () => {
   console.log('Server is running on port 3001');
 });
+
