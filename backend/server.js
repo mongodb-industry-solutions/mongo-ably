@@ -44,28 +44,6 @@ function generateRandomMessage() {
   return messages[Math.floor(Math.random() * messages.length)];
 }
 
-// Function to send random messages to Ably every 3 seconds
-function sendMessageToAbly() {
-  setInterval(() => {
-    const randomMessage = {
-      id: uuidv4(),
-      content: generateRandomMessage(),
-      timestamp: new Date(),
-    };
-
-    ablyChannel.publish('message', randomMessage, (err) => {
-      if (err) {
-        console.error('Error publishing message to Ably:', err);
-      } else {
-        console.log('Message sent to Ably:', randomMessage);
-      }
-    });
-  }, 3000); // 3000 milliseconds = 3 seconds
-}
-
-// Start sending messages as soon as the server starts
-// sendMessageToAbly();
-
 // Subscribe to the Ably channel and store incoming messages in MongoDB
 ablyChannel.subscribe('message', async (message) => {
   try {
@@ -125,7 +103,7 @@ app.get('/api/mongo-test', async (req, res) => {
   }
 });
 
-// Function to get all the documents inside the mongo-test collection
+// Function to get all the documents inside the update collection
 app.get('/api/updates', async (req, res) => {
   try {
       const data = await updatesCollection.find({}).toArray();
@@ -136,7 +114,25 @@ app.get('/api/updates', async (req, res) => {
   }
 });
 
+// Function to send random messages to Ably
+app.post('/api/sendRandomMessage', async (req, res) => {
+    const randomMessage = {
+      id: uuidv4(),
+      content: generateRandomMessage(),
+      timestamp: new Date(),
+    };
+
+    ablyChannel.publish('message', randomMessage, (err) => {
+      if (err) {
+        console.error('Error publishing message to Ably:', err);
+        res.status(-1).json({error: err});
+      } else {
+        console.log('Message sent to Ably:', randomMessage);
+        res.status(200).json({randomMessage: randomMessage});
+      }
+    });
+});
+
 app.listen(port, () => {
   console.log('Server is running on port 3001');
 });
-

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import Landing from './pages/Landing.js';
 import { ablyChannel, ablyChannelUpdates } from './ably.js';
-import { addMessagesToList, addMessagesToUpdates, addMessageToList, addMessageToUpdates } from './redux/slices/MessageSlice.js';
+import { addMessagesToList, addMessagesToUpdates, addMessageToList, addMessageToUpdates, setNewMessage, setNewMessageUpdated } from './redux/slices/MessageSlice.js';
 import { getAllMessages, getAllMessagesUpdates } from './api/mongodb-ably.js';
 
 function App() {
@@ -12,10 +12,12 @@ function App() {
     ablyChannel.subscribe((msg) => {
       console.log("REG MSG, ", msg)
       dispatch(addMessageToList(msg.data))
+      dispatch(setNewMessage(true))
     });
     ablyChannelUpdates.subscribe((msg) => {
       console.log("UPD MSG, ", msg)
       dispatch(addMessageToUpdates(msg.data))
+      dispatch(setNewMessageUpdated(true))
     });
 
     return () => {

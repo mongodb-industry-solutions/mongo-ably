@@ -94,7 +94,9 @@ const MessageSlice = createSlice({
             //         ]
             //     }
             // }
-        ]
+        ],
+        newMessage: false,
+        newMessageUpdates: false
     },
     reducers: {
         setFilterMessage: (state, action) => {
@@ -104,7 +106,6 @@ const MessageSlice = createSlice({
             return {...state, list: [...state.list, {...action.payload}]}
         },
         addMessagesToList: (state, action) => {
-            console.log(action.payload)
             return {...state, list: [...state.list, ...action.payload]}
         },
         removeMessageFromList: (state, action) => {
@@ -115,13 +116,20 @@ const MessageSlice = createSlice({
             return {...state, updates: [...state.updates, {...action.payload}]}
         },
         addMessagesToUpdates: (state, action) => {
-            console.log(action.payload)
             return {...state, updates: [...state.updates, ...action.payload]}
         },
         removeMessageFromUpdates: (state, action) => {
             state.updates = state.updates.filter(message => message.id !== action.payload.id)
             return state
-        }
+        },
+        setNewMessage: (state, action) => {
+            state.newMessage = action.payload
+            return state
+        },
+        setNewMessageUpdated: (state, action) => {
+            state.newMessageUpdates = action.payload
+            return state
+        },
     }
 })
 
@@ -132,7 +140,9 @@ export const {
     setFilterMessage,
     addMessageToUpdates,
     addMessagesToUpdates,
-    removeMessageFromUpdates
+    removeMessageFromUpdates,
+    setNewMessage,
+    setNewMessageUpdated
 } = MessageSlice.actions
 
 export default MessageSlice.reducer

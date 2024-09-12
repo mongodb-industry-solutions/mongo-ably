@@ -27,6 +27,11 @@ h6, .TabsContainer{
   margin-left: 1px;
 }
 
+.sim-container button{
+  display: inline-block;
+  margin: 0px 8px 0px 3px;
+}
+
 .card-styles{
   margin-bottom: 15px;
 }
