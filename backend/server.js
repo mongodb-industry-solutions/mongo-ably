@@ -10,10 +10,13 @@ const ablyApiKey = process.env.REACT_APP_ABLY_KEY;
 const mongoUri = process.env.REACT_APP_MONGO_URI;
 
 const app = express();
+const port = 3001;
+const cors = require("cors");
 const ably = new Ably(ablyApiKey);
 const ablyChannel = ably.channels.get('mongo-test');
 const updatesChannel = ably.channels.get('updates'); // Channel for updates
-
+app.use(express.json());
+app.use(cors());
 // Connect to MongoDB using the environment variable
 let db, collection, updatesCollection;
 
@@ -40,28 +43,6 @@ function generateRandomMessage() {
   ];
   return messages[Math.floor(Math.random() * messages.length)];
 }
-
-// Function to send random messages to Ably every 3 seconds
-function sendMessageToAbly() {
-  setInterval(() => {
-    const randomMessage = {
-      id: uuidv4(),
-      content: generateRandomMessage(),
-      timestamp: new Date(),
-    };
-
-    ablyChannel.publish('message', randomMessage, (err) => {
-      if (err) {
-        console.error('Error publishing message to Ably:', err);
-      } else {
-        console.log('Message sent to Ably:', randomMessage);
-      }
-    });
-  }, 3000); // 3000 milliseconds = 3 seconds
-}
-
-// Start sending messages as soon as the server starts
-// sendMessageToAbly();
 
 // Subscribe to the Ably channel and store incoming messages in MongoDB
 ablyChannel.subscribe('message', async (message) => {
@@ -111,6 +92,47 @@ function startChangeStream() {
   });
 }
 
-app.listen(3001, () => {
+// Function to get all the documents inside the mongo-test collection
+app.get('/api/mongo-test', async (req, res) => {
+  try {
+      const data = await collection.find({}).toArray();
+      res.status(200).json(data);
+  } catch (error) {
+      console.error('Error fetching data', error);
+      res.status(500).send('Internal Server Error');
+  }
+});
+
+// Function to get all the documents inside the update collection
+app.get('/api/updates', async (req, res) => {
+  try {
+      const data = await updatesCollection.find({}).toArray();
+      res.status(200).json(data);
+  } catch (error) {
+      console.error('Error fetching data', error);
+      res.status(500).send('Internal Server Error');
+  }
+});
+
+// Function to send random messages to Ably
+app.post('/api/sendRandomMessage', async (req, res) => {
+    const randomMessage = {
+      id: uuidv4(),
+      content: generateRandomMessage(),
+      timestamp: new Date(),
+    };
+
+    ablyChannel.publish('message', randomMessage, (err) => {
+      if (err) {
+        console.error('Error publishing message to Ably:', err);
+        res.status(-1).json({error: err});
+      } else {
+        console.log('Message sent to Ably:', randomMessage);
+        res.status(200).json({randomMessage: randomMessage});
+      }
+    });
+});
+
+app.listen(port, () => {
   console.log('Server is running on port 3001');
 });
