@@ -131,7 +131,7 @@ app.post('/api/sendRandomMessage', async (req, res) => {
         console.log('Message sent to Ably:', randomMessage);
         res.status(200).json({randomMessage: randomMessage});
       }
-    });∫
+    });
     res.status(200).json({randomMessage: randomMessage});
 });
 
