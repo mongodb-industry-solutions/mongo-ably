@@ -103,6 +103,7 @@ app.get('/api/mongo-test', async (req, res) => {
   }
 });
 
+
 // Function to get all the documents inside the update collection
 app.get('/api/updates', async (req, res) => {
   try {
@@ -130,7 +131,8 @@ app.post('/api/sendRandomMessage', async (req, res) => {
         console.log('Message sent to Ably:', randomMessage);
         res.status(200).json({randomMessage: randomMessage});
       }
-    });
+    });∫
+    res.status(200).json({randomMessage: randomMessage});
 });
 
 app.listen(port, () => {
