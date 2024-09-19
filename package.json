@@ -2,7 +2,7 @@
   "name": "mongo-ably",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:3001",
+  "proxy": "http://localhost:3000",
   "dependencies": {
     "@leafygreen-ui/button": "^21.2.1",
     "@leafygreen-ui/card": "^11.0.0",
@@ -28,6 +28,7 @@
     "react-redux": "^9.1.2",
     "react-scripts": "5.0.1",
     "uuid": "^10.0.0",
+    "vm-browserify": "^1.1.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -51,6 +52,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "assert": "^2.1.0",
     "buffer": "^6.0.3",
     "concurrently": "^9.0.1",
