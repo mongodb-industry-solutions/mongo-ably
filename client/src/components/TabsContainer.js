@@ -20,7 +20,7 @@ const TabsContainer = () => {
         dispatch(setNewMessage(false))
         dispatch(setNewMessageUpdated(false))
     }, [selected])
-    
+    console.log(messagesHistory)
     return (
         <div className='TabsContainer'>
             <Tabs aria-label="messages-tabs" setSelected={setSelected} selected={selected}>

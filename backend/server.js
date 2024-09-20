@@ -58,10 +58,6 @@ ablyChannel.subscribe('message', async (message) => {
   }
 });
 
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
 
 // Function to start the MongoDB Change Stream
 function startChangeStream() {
@@ -96,10 +92,6 @@ function startChangeStream() {
     console.error('Error in Change Stream:', err);
   });
 }
-
-app.get('/api/mongo-test', (req, res) => {
-  res.json({ message: "Hi from the testing sync backend!" });
-});
 
 // Function to get all the documents inside the mongo-test collection
 app.get('/api/mongo-test', async (req, res) => {
