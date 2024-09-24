@@ -5,12 +5,17 @@
 In the project directory, you can run:
 
 ### `npm install`
-This will install all the dependencies required for the application.
+This will install all the dependencies required for the application. 
+Due to the projects nature, you'll have to run this command in each one of the three following folders separately:
+
+* Firstly, in your `root` folder.
+* Secondly, in your `client` folder.
+* Lastly, in you `backend` folder.
 
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
+(Run only if you haven't already and not being prompted the build folder) - Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
 The build is minified and the filenames include the hashes.\
