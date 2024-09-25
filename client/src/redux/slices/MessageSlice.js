@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { act } from "react";
 
 const MessageSlice = createSlice({
     name: "Message",
@@ -116,7 +115,6 @@ const MessageSlice = createSlice({
             return {...state, updates: [...state.updates, {...action.payload}]}
         },
         addMessagesToUpdates: (state, action) => {
-            console.log(action.payload)
             return {...state, updates: [...state.updates, ...action.payload]}
         },
         removeMessageFromUpdates: (state, action) => {
