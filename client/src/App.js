@@ -16,7 +16,7 @@ function App() {
     });
     ablyChannelUpdates.subscribe((msg) => {
       console.log("UPD MSG, ", msg)
-      dispatch(addMessageToUpdates(msg.data))
+      dispatch(addMessageToUpdates(msg.data.content))
       dispatch(setNewMessageUpdated(true))
     });
 
