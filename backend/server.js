@@ -58,6 +58,7 @@ ablyChannel.subscribe('message', async (message) => {
   }
 });
 
+
 // Function to start the MongoDB Change Stream
 function startChangeStream() {
   const changeStream = updatesCollection.watch();
@@ -131,7 +132,7 @@ app.post('/api/sendRandomMessage', async (req, res) => {
         console.log('Message sent to Ably:', randomMessage);
         res.status(200).json({randomMessage: randomMessage});
       }
-    });∫
+    });
     res.status(200).json({randomMessage: randomMessage});
 });
 
