@@ -58,6 +58,7 @@ ablyChannel.subscribe('message', async (message) => {
   }
 });
 
+
 // Function to start the MongoDB Change Stream
 function startChangeStream() {
   const changeStream = updatesCollection.watch();
