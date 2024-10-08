@@ -34,5 +34,3 @@ You will also see any lint errors in the console.
 ## Learn More
 
 You can learn more about MongoDB [MongoDB Basics](https://www.mongodb.com/resources/products/fundamentals/basics).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
